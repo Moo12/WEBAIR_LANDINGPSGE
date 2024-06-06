@@ -86,8 +86,8 @@ WSGI_APPLICATION = 'webair.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'webdata',
-        'USER': 'momo',
+        'NAME': 'web_data',
+        'USER': 'mouser',
         "PASSWORD": 'BojTheMan1',
         'HOST': 'localhost',
         'PORT': '',
