@@ -11,9 +11,18 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+import messages
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'info',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +34,7 @@ SECRET_KEY = 'django-insecure-#yc+t1-8kga-sa#ltmb$e*wld0=f&()uq1*^npakvqr+znve_%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['178.128.195.93', 'localhost']
 
 
 # Application definition
@@ -37,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'website',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +64,7 @@ ROOT_URLCONF = 'webair.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,8 +85,12 @@ WSGI_APPLICATION = 'webair.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'webdata',
+        'USER': 'momo',
+        "PASSWORD": 'BojTheMan1',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -115,9 +129,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/uploads/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'from mail'
+# EMAIL_HOST_PASSWORD = 'password'
+# EMAIL_PORT = 587
+
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_URL = 'login'
